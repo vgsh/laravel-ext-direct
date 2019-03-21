@@ -29,16 +29,15 @@ class ExtDirectServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
-		$this->app['ext-direct'] = $this->app->share(function($app)
-        {
-            return new ExtDirect;
-        });
-
-        $this->app->booting(function()
-        {
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('ExtDirect', 'Bulforce\ExtDirect\Facades\ExtDirect');
-        });
+	$this->app->singleton(ExtDirect::class, function($app)
+		{
+		    return new ExtDirect;
+		});
+		$this->app->booting(function()
+		{
+		    $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+		    $loader->alias('ExtDirect', 'Bulforce\ExtDirect\Facades\ExtDirect');
+		});
 
 	}
 
